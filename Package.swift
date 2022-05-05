@@ -1,11 +1,11 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 
 import PackageDescription
 
 let package = Package(
     name: "SwiftyGif",
     platforms: [
-        .iOS("9.0"), .macOS(.v10_14),
+        .iOS("9.0"), .macOS(.v10_14), .tvOS(.v14)
     ],
     products: [
         .library(name: "SwiftyGif", targets: ["SwiftyGif"]),
