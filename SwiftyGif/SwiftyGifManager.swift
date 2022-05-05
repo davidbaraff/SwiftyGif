@@ -167,10 +167,21 @@ open class SwiftyGifManager {
             
             if imageView.isAnimatingGif() {
                 queue.sync(execute: imageView.updateCurrentImage)
-            } else if imageView.isDiscarded(imageView) {
+            }
+            else {
+                #if os(macOS)
                 queue.sync {
-                    self.deleteImageView(imageView)
+                    if imageView.isDiscarded(imageView) {
+                        self.deleteImageView(imageView)
+                    }
                 }
+                #else
+                if imageView.isDiscarded(imageView) {
+                    queue.sync {
+                        self.deleteImageView(imageView)
+                    }
+                }
+                #endif
             }
         }
     }
