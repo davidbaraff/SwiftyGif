@@ -326,15 +326,20 @@ public extension NSImageView {
     ///
     /// - Returns : A boolean for weather the imageView is displayed
     func isDisplayedInScreen(_ imageView: NSView?) -> Bool {
-        guard !isHidden, let imageView = imageView else  {
+        guard !isHidden /*, let imageView = imageView */ else  {
             return false
         }
         
+        // This doesn't deal with multiple windows correctly. Skip the optimization
+        // and display as long as there's a window:
+        return window != nil
+
+        /*
         let screenRect = NSScreen.main?.visibleFrame ?? .zero
         let viewRect = imageView.convert(bounds, to:nil)
         let intersectionRect = viewRect.intersection(screenRect)
-        
         return window != nil && !intersectionRect.isEmpty && !intersectionRect.isNull
+         */
     }
     
     func clear() {
